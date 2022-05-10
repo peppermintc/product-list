@@ -5,14 +5,14 @@ import styled from "styled-components";
 const Container = styled.div`
   background-color: pink;
 
-  width: 250px;
-  height: 400px;
+  width: 220px;
+  height: 350px;
 `;
 
 const Thumbnail = styled.img`
   width: 100%;
-  min-width: 250px;
-  min-height: 250px;
+  min-width: 220px;
+  min-height: 220px;
   object-fit: cover;
 `;
 
