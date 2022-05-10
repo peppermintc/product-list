@@ -63,8 +63,6 @@ const ColorFilter = ({ filter, setFilter }: ColorFilterProps) => {
   const [colors, setColors] = useState<Color[]>([]);
   const [openList, setOpenList] = useState<boolean>(false);
 
-  const currentColor = filter?.color?.name;
-
   useEffect(() => {
     if (colors.length === 0)
       axiosFetchColors().then((response) => setColors(response));
@@ -100,6 +98,8 @@ const ColorFilter = ({ filter, setFilter }: ColorFilterProps) => {
 
     setOpenList(false);
   };
+
+  const currentColor = filter?.color?.name;
 
   return (
     <Container>

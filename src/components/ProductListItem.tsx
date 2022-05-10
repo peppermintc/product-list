@@ -1,5 +1,5 @@
 import { Product } from "../interfaces";
-import getSaleRate from "../utils/getSaleRate";
+import { getSaleRate } from "../utils/getSaleRate";
 import styled from "styled-components";
 import NoImageSrc from "../img/noImgSrc.png";
 import { formatPrice } from "../utils/formatPrice";

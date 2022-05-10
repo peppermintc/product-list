@@ -41,8 +41,6 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
   const [categoryTree, setCategoryTree] = useState<CategoryTreeNode[]>();
   const [openedCategoryList, setOpenedCategoryList] = useState<boolean[]>([]);
 
-  const currentCategoryId = filter?.categoryId;
-
   useEffect(() => {
     if (categories.length === 0)
       axiosFetchCategories().then((response) => setCategories(response));
@@ -89,6 +87,8 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
       return newFilter;
     });
   };
+
+  const currentCategoryId = filter?.categoryId;
 
   return (
     <Container>

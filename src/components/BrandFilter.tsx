@@ -25,9 +25,9 @@ const Selector = styled.div`
 
 const Selected = styled.div`
   padding: 10px;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
   &:hover {
     background-color: whitesmoke;
   }
@@ -62,8 +62,6 @@ const Icon = styled.img`
 const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
   const [brands, setBrands] = useState<Brand[]>([]);
   const [openList, setOpenList] = useState<boolean>(false);
-
-  const currentBrand = filter?.brand?.name;
 
   useEffect(() => {
     if (brands.length === 0)
@@ -100,6 +98,8 @@ const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
 
     setOpenList(false);
   };
+
+  const currentBrand = filter?.brand?.name;
 
   return (
     <Container>

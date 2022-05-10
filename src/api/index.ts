@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Filter } from "../interfaces";
 
-export const axiosFetchProducts = async (filter: Filter | undefined) => {
-  return await axios
+export const axiosFetchProducts = (filter: Filter | undefined) => {
+  return axios
     .get(
       "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/products",
       {
@@ -20,8 +20,8 @@ export const axiosFetchProducts = async (filter: Filter | undefined) => {
     .catch(console.error);
 };
 
-export const axiosFetchBrands = async () => {
-  return await axios
+export const axiosFetchBrands = () => {
+  return axios
     .get(
       "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/brands"
     )
@@ -29,8 +29,8 @@ export const axiosFetchBrands = async () => {
     .catch(console.error);
 };
 
-export const axiosFetchColors = async () => {
-  return await axios
+export const axiosFetchColors = () => {
+  return axios
     .get(
       "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/colors"
     )
@@ -38,8 +38,8 @@ export const axiosFetchColors = async () => {
     .catch(console.error);
 };
 
-export const axiosFetchCategories = async () => {
-  return await axios
+export const axiosFetchCategories = () => {
+  return axios
     .get(
       "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/categories"
     )

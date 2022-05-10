@@ -1,9 +1,9 @@
+import { Filter, Product } from "./interfaces";
 import { useEffect, useState } from "react";
 import { axiosFetchProducts } from "./api";
-import ProductList from "./components/ProductList";
-import { Filter, Product } from "./interfaces";
 import styled from "styled-components";
 import FilterBar from "./components/FilterBar";
+import ProductList from "./components/ProductList";
 import PageNavigator from "./components/PageNavigator";
 
 const Container = styled.div`
