@@ -1,10 +1,11 @@
-import { MouseEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import { MouseEvent, useEffect, useState } from "react";
 import { axiosFetchBrands } from "../api";
 import { Brand, Filter } from "../interfaces";
 import ArrowDownIcon from "../img/arrowDown.png";
 
 interface BrandFilterProps {
+  filter: Filter | undefined;
   setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>;
 }
 
@@ -55,10 +56,11 @@ const ListItem = styled.div`
   }
 `;
 
-const BrandFilter = ({ setFilter }: BrandFilterProps) => {
+const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
   const [brands, setBrands] = useState<Brand[]>([]);
   const [openList, setOpenList] = useState<boolean>(false);
-  const [currentBrand, setCurrentBrand] = useState<Brand>();
+
+  const currentBrand = filter?.brand?.name;
 
   useEffect(() => {
     if (brands.length === 0)
@@ -74,28 +76,22 @@ const BrandFilter = ({ setFilter }: BrandFilterProps) => {
     const newCurrentBrandName = eventTarget.innerText;
 
     setOpenList(false);
-    setCurrentBrand({ name: newCurrentBrandName });
-  };
-
-  useEffect(() => {
-    if (currentBrand === undefined) return;
-
     setFilter((prevFilter: any) => {
       const newFilter = {
         ...prevFilter,
-        brand: currentBrand,
+        brand: { name: newCurrentBrandName },
       };
 
       return newFilter;
     });
-  }, [currentBrand, setFilter]);
+  };
 
   return (
     <Container>
       <Label>Brand:</Label>
       <Selector>
         <Selected onClick={onSelectedClick}>
-          {currentBrand ? currentBrand.name : "Select Brand"}
+          {currentBrand ? currentBrand : "Select Brand"}
           <img src={ArrowDownIcon} alt="down" />
         </Selected>
         {openList && (

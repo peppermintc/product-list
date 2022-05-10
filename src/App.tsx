@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <Container>
-      <FilterBar setFilter={setFilter} />
+      <FilterBar filter={filter} setFilter={setFilter} />
       <ProductList productList={productList} />
     </Container>
   );

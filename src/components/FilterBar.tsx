@@ -3,8 +3,10 @@ import styled from "styled-components";
 import BrandFilter from "./BrandFilter";
 import ColorFilter from "./ColorFilter";
 import CategoryFilter from "./CategoryFilter";
+import ResetButton from "./ResetButton";
 
 interface FilterBarProps {
+  filter: Filter | undefined;
   setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>;
 }
 
@@ -20,14 +22,15 @@ const Section = styled.section`
   display: flex;
 `;
 
-const FilterBar = ({ setFilter }: FilterBarProps) => {
+const FilterBar = ({ filter, setFilter }: FilterBarProps) => {
   return (
     <Container>
       <Section>
-        <BrandFilter setFilter={setFilter} />
-        <ColorFilter setFilter={setFilter} />
+        <BrandFilter filter={filter} setFilter={setFilter} />
+        <ColorFilter filter={filter} setFilter={setFilter} />
       </Section>
-      <CategoryFilter setFilter={setFilter} />
+      <CategoryFilter filter={filter} setFilter={setFilter} />
+      <ResetButton setFilter={setFilter} />
       <div>가격 필터</div>
     </Container>
   );

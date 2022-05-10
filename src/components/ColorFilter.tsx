@@ -5,6 +5,7 @@ import { Color, Filter } from "../interfaces";
 import ArrowDownIcon from "../img/arrowDown.png";
 
 interface ColorFilterProps {
+  filter: Filter | undefined;
   setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>;
 }
 
@@ -55,10 +56,11 @@ const ListItem = styled.div`
   }
 `;
 
-const ColorFilter = ({ setFilter }: ColorFilterProps) => {
+const ColorFilter = ({ filter, setFilter }: ColorFilterProps) => {
   const [colors, setColors] = useState<Color[]>([]);
   const [openList, setOpenList] = useState<boolean>(false);
-  const [currentColor, setCurrentColor] = useState<Color>();
+
+  const currentColor = filter?.color?.name;
 
   useEffect(() => {
     if (colors.length === 0)
@@ -74,28 +76,22 @@ const ColorFilter = ({ setFilter }: ColorFilterProps) => {
     const newCurrentColorName = eventTarget.innerText;
 
     setOpenList(false);
-    setCurrentColor({ name: newCurrentColorName });
-  };
-
-  useEffect(() => {
-    if (currentColor === undefined) return;
-
     setFilter((prevFilter: any) => {
       const newFilter = {
         ...prevFilter,
-        color: currentColor,
+        color: { name: newCurrentColorName },
       };
 
       return newFilter;
     });
-  }, [currentColor, setFilter]);
+  };
 
   return (
     <Container>
       <Label>Color:</Label>
       <Selector>
         <Selected onClick={onSelectedClick}>
-          {currentColor ? currentColor.name : "Select Color"}
+          {currentColor ? currentColor : "Select Color"}
           <img src={ArrowDownIcon} alt="down" />
         </Selected>
         {openList && (

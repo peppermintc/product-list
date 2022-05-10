@@ -5,6 +5,7 @@ import { Category, CategoryTreeNode, Filter } from "../interfaces";
 import { makeCategoryTree } from "../utils/makeCategoryTree";
 
 interface CategoryFilterProps {
+  filter: Filter | undefined;
   setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>;
 }
 
@@ -30,11 +31,12 @@ const Child = styled.div<{ isSelected: boolean }>`
   font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
 `;
 
-const CategoryFilter = ({ setFilter }: CategoryFilterProps) => {
+const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryTree, setCategoryTree] = useState<CategoryTreeNode[]>();
-  const [currentCategory, setCurrentCategory] = useState<Category>();
   const [openedCategoryList, setOpenedCategoryList] = useState<boolean[]>([]);
+
+  const currentCategoryId = filter?.categoryId;
 
   useEffect(() => {
     if (categories.length === 0)
@@ -45,19 +47,6 @@ const CategoryFilter = ({ setFilter }: CategoryFilterProps) => {
     const newCategoryTree = makeCategoryTree(categories);
     setCategoryTree(newCategoryTree);
   }, [categories]);
-
-  useEffect(() => {
-    const updateFilter = () => {
-      if (currentCategory === undefined) return;
-
-      setFilter((prevFilter) => {
-        const newFilter = { ...prevFilter, categoryId: currentCategory.id };
-        return newFilter;
-      });
-    };
-
-    updateFilter();
-  }, [currentCategory, setFilter]);
 
   useEffect(() => {
     const initOpenedCategoryList = () => {
@@ -75,11 +64,18 @@ const CategoryFilter = ({ setFilter }: CategoryFilterProps) => {
       !newOpenedCategoryList[selectedCategory.id - 1];
 
     setOpenedCategoryList([...newOpenedCategoryList]);
-    setCurrentCategory(selectedCategory);
+
+    setFilter((prevFilter) => {
+      const newFilter = { ...prevFilter, categoryId: selectedCategory.id };
+      return newFilter;
+    });
   };
 
   const onChildCategoryClick = (selectedCategory: Category) => {
-    setCurrentCategory(selectedCategory);
+    setFilter((prevFilter) => {
+      const newFilter = { ...prevFilter, categoryId: selectedCategory.id };
+      return newFilter;
+    });
   };
 
   return (
@@ -89,7 +85,7 @@ const CategoryFilter = ({ setFilter }: CategoryFilterProps) => {
         {categoryTree?.map((node: CategoryTreeNode) => (
           <div key={node.parent.id}>
             <Parent
-              isSelected={node.parent.id === currentCategory?.id}
+              isSelected={node.parent.id === currentCategoryId}
               onClick={() => onParentCategoryClick(node.parent)}
             >
               {node.parent.name}
@@ -98,7 +94,7 @@ const CategoryFilter = ({ setFilter }: CategoryFilterProps) => {
               {node.children?.map((child) => (
                 <Child
                   key={child.id}
-                  isSelected={child.id === currentCategory?.id}
+                  isSelected={child.id === currentCategoryId}
                   onClick={() => onChildCategoryClick(child)}
                 >
                   {child.name}
