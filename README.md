@@ -9,21 +9,21 @@
 
 ## 사용 라이브러리
 
-- axios
-- react
-- typescript
-- styled-components
+- axios: HTTP 통신
+- react: UI 컴포넌트 구현
+- typescript: Interface, Type을 이용한 정적 타이핑을 위해 사용
+- styled-components: CSS 스타일
 
-## 구현 내용 및 구현 순서
+## 구성 요소 및 구현 순서
 
-### 구현 내용
+### 구성 요소
 
 - 브랜드 필터
 - 색상 필터
 - 가격 필터
 - 카테고리 필터
 - 상품 목록
-- Pagination
+- 페이지 네비게이터
 
 ### 구현 순서 및 내용
 
@@ -38,18 +38,18 @@
 
    필터 구현 순서는 간단한 기능부터 구현하여서 아래와 같은 순서로 구현하였습니다.
 
-   브랜드 필터 > 색상 필터 > 카테고리 필터 > 가격 필터 (완성 X)
+   `브랜드 필터 > 색상 필터 > 카테고리 필터 > 가격 필터 (완성 X)`
 
-#### 미구현 사항
+## 미구현 사항
 
 - 가격 필터
 
   Input을 통한 필터링은 구현하였습니다. Range bar를 통한 가격 필터링은 Bar 형태의 div 2개와 최저, 최고를 조절하는 핸들 2개의 부품을 조합하여 구현하려고 하였습니다.
 
-  - Container: Range Bar Div 입니다.
-  - Fill: Left와 Right 사이의 구간을 색칠하는 Div 입니다.
-  - Left: 최저 금액을 조절하는 핸들입니다.
-  - Right: 최고 금액을 조절하는 핸들입니다.
+  - `Container`: Range Bar Div 입니다.
+  - `Fill`: Left와 Right 사이의 구간을 색칠하는 Div 입니다.
+  - `Left`: 최저 금액을 조절하는 핸들입니다.
+  - `Right`: 최고 금액을 조절하는 핸들입니다.
 
   Container div를 `position relative`로 설정하고, 내부 부품들을 `position absolute`로 설정하여 내부의 컴포넌트 위치를 조절하는 방법을 생각하였습니다. 금액 구간 값과 내부 부품들의 x축 값(CSS left 이용)이 바인딩 되도록 하는 방식을 계획하였으나 시간이 많이 걸릴 것 같다는 생각이 들었습니다.
 
