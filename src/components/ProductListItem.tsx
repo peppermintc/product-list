@@ -1,6 +1,12 @@
 import { Product } from "../interfaces";
 import getSaleRate from "../utils/getSaleRate";
 import styled from "styled-components";
+import NoImageSrc from "../img/noImgSrc.png";
+import { formatPrice } from "../utils/formatPrice";
+
+interface ProductListItemProps {
+  product: Product;
+}
 
 const Container = styled.div`
   width: 220px;
@@ -21,19 +27,22 @@ const Description = styled.div`
   padding: 10px;
 `;
 
-interface ProductListItemProps {
-  product: Product;
-}
-
 const ProductListItem = ({ product }: ProductListItemProps) => {
+  const getThumbnailSrc = () => {
+    if (product.image.includes("http")) return product.image;
+    else return NoImageSrc;
+  };
+
   return (
     <Container>
-      <Thumbnail src={product.image} alt="thumbnail" />
+      <Thumbnail src={getThumbnailSrc()} alt="thumbnail" />
       <Description>
         <div>{product.brand}</div>
         <div>{product.name}</div>
-        <div>{product.original_price}</div>
-        <div>{getSaleRate(product.original_price, product.sales_price)}</div>
+        <div>Price: {formatPrice(product.original_price)}</div>
+        <div>
+          Sale Rate: {getSaleRate(product.original_price, product.sales_price)}
+        </div>
       </Description>
     </Container>
   );

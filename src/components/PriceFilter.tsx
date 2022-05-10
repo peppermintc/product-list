@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import styled from "styled-components";
 import { Filter } from "../interfaces";
+import RangeSlider from "./RangeSlider";
 
 interface PriceFilterProps {
   filter: Filter | undefined;
@@ -15,10 +16,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px;
-`;
-
-const RangeSlider = styled.input`
-  width: 100%;
 `;
 
 const Inputs = styled.div`
@@ -55,36 +52,40 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin: 20px;
-  padding: 10px 20px;
-`;
-
 const PriceFilter = ({ filter, setFilter }: PriceFilterProps) => {
   const minPrice: number | undefined = filter?.minPrice;
   const maxPrice: number | undefined = filter?.maxPrice;
 
-  const onRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // const new
+  const onMinChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilter((prevFilter: any) => {
+      const newFilter = { ...prevFilter, minPrice: e.target.value };
+      return newFilter;
+    });
+  };
+
+  const onMaxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilter((prevFilter: any) => {
+      const newFilter = { ...prevFilter, maxPrice: e.target.value };
+      return newFilter;
+    });
   };
 
   return (
     <Container>
-      <RangeSlider
-        type="range"
-        min="0"
-        max="10000000"
-        onChange={onRangeChange}
-      />
+      <RangeSlider />
       <Inputs>
         <InputContainer>
           <Label>최저 금액</Label>
           <Section>
             <span>￦</span>
-            <Input type="number" min={0} max={10000000} value={minPrice} />
+            <Input
+              type="number"
+              min={0}
+              max={10000000}
+              value={minPrice}
+              onChange={onMinChange}
+              placeholder={"0"}
+            />
           </Section>
         </InputContainer>
 
@@ -92,11 +93,17 @@ const PriceFilter = ({ filter, setFilter }: PriceFilterProps) => {
           <Label>최고 금액</Label>
           <Section>
             <span>￦</span>
-            <Input type="number" min={0} max={10000000} value={maxPrice} />
+            <Input
+              type="number"
+              min={0}
+              max={10000000}
+              value={maxPrice}
+              onChange={onMaxChange}
+              placeholder={"10000000"}
+            />
           </Section>
         </InputContainer>
       </Inputs>
-      <Button>Apply Price</Button>
     </Container>
   );
 };

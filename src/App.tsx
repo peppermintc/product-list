@@ -4,6 +4,7 @@ import ProductList from "./components/ProductList";
 import { Filter, Product } from "./interfaces";
 import styled from "styled-components";
 import FilterBar from "./components/FilterBar";
+import PageNavigator from "./components/PageNavigator";
 
 const Container = styled.div`
   display: flex;
@@ -14,17 +15,26 @@ const Container = styled.div`
 const App = () => {
   const [productList, setProductList] = useState<Product[]>([]);
   const [filter, setFilter] = useState<Filter>();
+  const [productsResponse, setProductsResponse] = useState<{
+    products: Product[];
+    total: number;
+  }>();
 
   useEffect(() => {
-    axiosFetchProducts(filter).then((response) =>
-      setProductList(response.products)
-    );
+    axiosFetchProducts(filter).then((response) => {
+      setProductList(response.products);
+      setProductsResponse(response);
+    });
   }, [filter]);
 
   return (
     <Container>
       <FilterBar filter={filter} setFilter={setFilter} />
       <ProductList productList={productList} />
+      <PageNavigator
+        productsLength={productsResponse ? productsResponse.products.length : 0}
+        totalLength={productsResponse ? productsResponse.total : 0}
+      />
     </Container>
   );
 };

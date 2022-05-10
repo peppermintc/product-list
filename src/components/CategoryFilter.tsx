@@ -12,7 +12,7 @@ interface CategoryFilterProps {
 const Container = styled.div`
   position: fixed;
   left: 0;
-  top: 35%;
+  top: 30%;
   padding: 20px;
 `;
 

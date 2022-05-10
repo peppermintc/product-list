@@ -42,6 +42,7 @@ const List = styled.div`
   max-height: 400px;
   overflow-y: scroll;
   border: 1px solid lightgray;
+  z-index: 1;
 `;
 
 const ListItem = styled.div`
