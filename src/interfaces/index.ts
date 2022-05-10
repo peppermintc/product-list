@@ -1,3 +1,8 @@
+export type CategoryTreeNode = {
+  parent: Category;
+  children: Category[] | null;
+};
+
 export interface Filter {
   page?: number;
   color?: Color;

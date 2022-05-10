@@ -37,3 +37,12 @@ export const axiosFetchColors = async () => {
     .then((response) => response.data)
     .catch(console.error);
 };
+
+export const axiosFetchCategories = async () => {
+  return await axios
+    .get(
+      "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/categories"
+    )
+    .then((response) => response.data)
+    .catch(console.error);
+};
