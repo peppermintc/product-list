@@ -16,6 +16,11 @@ const Container = styled.div`
   padding: 20px;
 `;
 
+const All = styled.div<{ isSelected: boolean }>`
+  cursor: pointer;
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
+`;
+
 const Children = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
 `;
@@ -78,10 +83,20 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
     });
   };
 
+  const onAllClick = () => {
+    setFilter((prevFilter) => {
+      const newFilter = { ...prevFilter, categoryId: undefined };
+      return newFilter;
+    });
+  };
+
   return (
     <Container>
       <h4>[Category]</h4>
       <div>
+        <All isSelected={currentCategoryId === undefined} onClick={onAllClick}>
+          All
+        </All>
         {categoryTree?.map((node: CategoryTreeNode) => (
           <div key={node.parent.id}>
             <Parent
