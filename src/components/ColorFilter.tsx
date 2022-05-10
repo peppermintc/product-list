@@ -77,15 +77,27 @@ const ColorFilter = ({ filter, setFilter }: ColorFilterProps) => {
     const eventTarget = e.target as HTMLElement;
     const newCurrentColorName = eventTarget.innerText;
 
-    setOpenList(false);
-    setFilter((prevFilter: any) => {
-      const newFilter = {
-        ...prevFilter,
-        color: { name: newCurrentColorName },
-      };
+    if (newCurrentColorName === "All colors") {
+      setFilter((prevFilter: any) => {
+        const newFilter = {
+          ...prevFilter,
+          color: undefined,
+        };
 
-      return newFilter;
-    });
+        return newFilter;
+      });
+    } else {
+      setFilter((prevFilter: any) => {
+        const newFilter = {
+          ...prevFilter,
+          color: { name: newCurrentColorName },
+        };
+
+        return newFilter;
+      });
+    }
+
+    setOpenList(false);
   };
 
   return (
@@ -98,6 +110,9 @@ const ColorFilter = ({ filter, setFilter }: ColorFilterProps) => {
         </Selected>
         {openList && (
           <List>
+            <ListItem key="All colors" onClick={onListItemClick}>
+              All colors
+            </ListItem>
             {colors.map((color) => (
               <ListItem key={color.name} onClick={onListItemClick}>
                 {color.name}
