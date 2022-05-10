@@ -6,7 +6,6 @@ import styled from "styled-components";
 import FilterBar from "./components/FilterBar";
 
 const Container = styled.div`
-  background-color: yellow;
   display: flex;
   flex-direction: column;
   align-items: center;

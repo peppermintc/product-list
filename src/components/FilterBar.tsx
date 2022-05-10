@@ -11,7 +11,6 @@ interface FilterBarProps {
 }
 
 const Container = styled.div`
-  background-color: lightblue;
   display: flex;
   flex-direction: column;
   justify-content: center;

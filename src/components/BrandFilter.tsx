@@ -15,8 +15,6 @@ const Container = styled.div`
 `;
 
 const Label = styled.div`
-  font-weight: 700;
-  font-size: 18px;
   padding: 10px;
 `;
 
@@ -27,8 +25,6 @@ const Selector = styled.div`
 
 const Selected = styled.div`
   padding: 10px;
-  font-weight: 700;
-  font-size: 18px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -43,8 +39,9 @@ const List = styled.div`
   left: 0;
   background-color: white;
   min-width: 180px;
-  max-height: 700px;
+  max-height: 400px;
   overflow-y: scroll;
+  border: 1px solid lightgray;
 `;
 
 const ListItem = styled.div`
@@ -54,6 +51,11 @@ const ListItem = styled.div`
     background-color: whitesmoke;
     cursor: pointer;
   }
+`;
+
+const Icon = styled.img`
+  width: 18px;
+  height: 18px;
 `;
 
 const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
@@ -92,7 +94,7 @@ const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
       <Selector>
         <Selected onClick={onSelectedClick}>
           {currentBrand ? currentBrand : "Select Brand"}
-          <img src={ArrowDownIcon} alt="down" />
+          <Icon src={ArrowDownIcon} alt="down" />
         </Selected>
         {openList && (
           <List>
