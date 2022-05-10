@@ -77,15 +77,27 @@ const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
     const eventTarget = e.target as HTMLElement;
     const newCurrentBrandName = eventTarget.innerText;
 
-    setOpenList(false);
-    setFilter((prevFilter: any) => {
-      const newFilter = {
-        ...prevFilter,
-        brand: { name: newCurrentBrandName },
-      };
+    if (newCurrentBrandName === "All brands") {
+      setFilter((prevFilter: any) => {
+        const newFilter = {
+          ...prevFilter,
+          brand: undefined,
+        };
 
-      return newFilter;
-    });
+        return newFilter;
+      });
+    } else {
+      setFilter((prevFilter: any) => {
+        const newFilter = {
+          ...prevFilter,
+          brand: { name: newCurrentBrandName },
+        };
+
+        return newFilter;
+      });
+    }
+
+    setOpenList(false);
   };
 
   return (
@@ -98,6 +110,9 @@ const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
         </Selected>
         {openList && (
           <List>
+            <ListItem key="All brands" onClick={onListItemClick}>
+              All brands
+            </ListItem>
             {brands.map((brand) => (
               <ListItem key={brand.name} onClick={onListItemClick}>
                 {brand.name}
