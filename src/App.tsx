@@ -1,7 +1,7 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosFetchProducts } from "./api";
 import ProductList from "./components/ProductList";
-import { Product } from "./interfaces";
+import { Filter, Product } from "./interfaces";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -13,12 +13,13 @@ const Container = styled.div`
 
 const App = () => {
   const [productList, setProductList] = useState<Product[]>([]);
+  const [filter, setFilter] = useState<Filter>();
 
-  useLayoutEffect(() => {
-    axiosFetchProducts({}).then((response) =>
+  useEffect(() => {
+    axiosFetchProducts(filter).then((response) =>
       setProductList(response.products)
     );
-  }, []);
+  }, [filter]);
 
   return (
     <Container>
