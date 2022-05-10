@@ -4,6 +4,7 @@ import BrandFilter from "./BrandFilter";
 import ColorFilter from "./ColorFilter";
 import CategoryFilter from "./CategoryFilter";
 import ResetButton from "./ResetButton";
+import PriceFilter from "./PriceFilter";
 
 interface FilterBarProps {
   filter: Filter | undefined;
@@ -29,8 +30,8 @@ const FilterBar = ({ filter, setFilter }: FilterBarProps) => {
         <ColorFilter filter={filter} setFilter={setFilter} />
       </Section>
       <CategoryFilter filter={filter} setFilter={setFilter} />
+      <PriceFilter filter={filter} setFilter={setFilter} />
       <ResetButton setFilter={setFilter} />
-      <div>가격 필터</div>
     </Container>
   );
 };
