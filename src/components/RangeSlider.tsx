@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -43,7 +43,7 @@ const Fill = styled.div`
 
 const RangeSlider = () => {
   const [dragLeft, setDragLeft] = useState<boolean>(false);
-  const [xLeft, setXLeft] = useState<string>("0px");
+  const [xLeft] = useState<string>("0px");
 
   const onMouseDownLeft = (e: MouseEvent) => {
     setDragLeft(true);
