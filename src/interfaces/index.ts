@@ -1,6 +1,6 @@
 export interface Filter {
   page?: number;
-  color?: string;
+  color?: Color;
   maxPrice?: number;
   minPrice?: number;
   brand?: Brand;
@@ -26,5 +26,9 @@ export interface Category {
 }
 
 export interface Brand {
+  name: string;
+}
+
+export interface Color {
   name: string;
 }

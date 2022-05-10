@@ -10,7 +10,7 @@ export const axiosFetchProducts = async (filter: Filter | undefined) => {
           brand: filter.brand && filter.brand.name,
           categoryId: filter.categoryId,
           page: filter.page,
-          color: filter.color,
+          color: filter.color && filter.color.name,
           maxPrice: filter.maxPrice,
           minPrice: filter.minPrice,
         },
@@ -20,19 +20,19 @@ export const axiosFetchProducts = async (filter: Filter | undefined) => {
     .catch(console.error);
 };
 
-export const axiosFetchCategories = async () => {
+export const axiosFetchBrands = async () => {
   return await axios
     .get(
-      "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/categories"
+      "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/brands"
     )
     .then((response) => response.data)
     .catch(console.error);
 };
 
-export const axiosFetchBrands = async () => {
+export const axiosFetchColors = async () => {
   return await axios
     .get(
-      "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/brands"
+      "https://lz5cdtbtci.execute-api.ap-northeast-2.amazonaws.com/assignment/colors"
     )
     .then((response) => response.data)
     .catch(console.error);

@@ -1,6 +1,7 @@
 import { Filter } from "../interfaces";
 import styled from "styled-components";
 import BrandFilter from "./BrandFilter";
+import ColorFilter from "./ColorFilter";
 
 interface FilterBarProps {
   setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>;
@@ -23,7 +24,7 @@ const FilterBar = ({ setFilter }: FilterBarProps) => {
     <Container>
       <Section>
         <BrandFilter setFilter={setFilter} />
-        <div>색상 필터</div>
+        <ColorFilter setFilter={setFilter} />
       </Section>
       <div>카테고리 필터</div>
       <div>가격 필터</div>
