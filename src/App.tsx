@@ -16,8 +16,6 @@ const App = () => {
   const [productList, setProductList] = useState<Product[]>([]);
   const [filter, setFilter] = useState<Filter>();
 
-  const updateFilter = (newFilter: Filter) => setFilter(newFilter);
-
   useEffect(() => {
     axiosFetchProducts(filter).then((response) =>
       setProductList(response.products)
@@ -26,7 +24,7 @@ const App = () => {
 
   return (
     <Container>
-      <FilterBar updateFilter={updateFilter} />
+      <FilterBar setFilter={setFilter} />
       <ProductList productList={productList} />
     </Container>
   );

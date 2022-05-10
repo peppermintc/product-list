@@ -3,7 +3,7 @@ export interface Filter {
   color?: string;
   maxPrice?: number;
   minPrice?: number;
-  brand?: string;
+  brand?: Brand;
   categoryId?: number;
 }
 
@@ -17,4 +17,14 @@ export interface Product {
   original_price: number;
   sales_price: number;
   retailer_id: number;
+}
+
+export interface Category {
+  id: number;
+  parent_id: number;
+  name: string;
+}
+
+export interface Brand {
+  name: string;
 }

@@ -1,8 +1,9 @@
 import { Filter } from "../interfaces";
 import styled from "styled-components";
+import BrandFilter from "./BrandFilter";
 
 interface FilterBarProps {
-  updateFilter: (newFilter: Filter) => void;
+  setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>;
 }
 
 const Container = styled.div`
@@ -13,13 +14,19 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const FilterBar = ({ updateFilter }: FilterBarProps) => {
+const Section = styled.section`
+  display: flex;
+`;
+
+const FilterBar = ({ setFilter }: FilterBarProps) => {
   return (
     <Container>
-      <div>브랜드 필터</div>
-      <div>색상 필터</div>
-      <div>가격 필터</div>
+      <Section>
+        <BrandFilter setFilter={setFilter} />
+        <div>색상 필터</div>
+      </Section>
       <div>카테고리 필터</div>
+      <div>가격 필터</div>
     </Container>
   );
 };
