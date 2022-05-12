@@ -13,17 +13,14 @@ const Container = styled.div`
 `;
 
 const App = () => {
-  const [productList, setProductList] = useState<Product[]>([]);
   const [filter, setFilter] = useState<Filter>();
-  const [productsResponse, setProductsResponse] = useState<{
-    products: Product[];
-    total: number;
-  }>();
+  const [productList, setProductList] = useState<Product[]>([]);
+  const [productsLength, setProductsLength] = useState<number>();
 
   useEffect(() => {
     fetchProducts(filter).then((response) => {
       setProductList(response.products);
-      setProductsResponse(response);
+      setProductsLength(response.total);
     });
   }, [filter]);
 
@@ -31,10 +28,7 @@ const App = () => {
     <Container>
       <FilterBar filter={filter} setFilter={setFilter} />
       <ProductList productList={productList} />
-      <PageNavigator
-        productsLength={productsResponse ? productsResponse.products.length : 0}
-        totalLength={productsResponse ? productsResponse.total : 0}
-      />
+      <PageNavigator productsLength={productsLength ? productsLength : 0} />
     </Container>
   );
 };

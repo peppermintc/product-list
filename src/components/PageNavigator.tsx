@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 interface PageNavigatorProps {
   productsLength: number;
-  totalLength: number;
 }
 
 const Container = styled.div`
@@ -14,19 +13,12 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const PageNavigator = ({ productsLength, totalLength }: PageNavigatorProps) => {
-  const totalPages: number = Math.ceil(totalLength / productsLength);
-
-  useEffect(() => {
-    if (!totalPages) return;
-
-    const totalPageSections = Math.ceil(totalPages / 10);
-    console.log(totalPageSections);
-  }, [totalPages]);
+const PageNavigator = ({ productsLength }: PageNavigatorProps) => {
+  const totalPages: number = Math.ceil(productsLength / 20);
 
   return (
     <Container>
-      <div>totalPages: {totalPages ? totalPages : 0}</div>
+      <div>totalPages: {totalPages}</div>
     </Container>
   );
 };
