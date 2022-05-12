@@ -117,18 +117,19 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
       });
     };
 
-    return categoryTree.map((node: TreeNode) => (
-      <CategoryItem
-        key={node.current.id}
-        isSelected={node.current.id === currentCategoryId}
-        onClick={() => {}}
-        depth={0}
-      >
-        <span>{node.current.name}</span>
-
-        {addChildren(node.children, 1)}
-      </CategoryItem>
-    ));
+    return categoryTree
+      .filter((node) => node.parent === null)
+      .map((node: TreeNode) => (
+        <CategoryItem
+          key={node.current.id}
+          isSelected={node.current.id === currentCategoryId}
+          onClick={() => {}}
+          depth={0}
+        >
+          <span>{node.current.name}</span>
+          {addChildren(node.children, 1)}
+        </CategoryItem>
+      ));
   };
 
   const currentCategoryId = filter?.categoryId;
