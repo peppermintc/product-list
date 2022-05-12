@@ -15,7 +15,7 @@ const Container = styled.div`
 const App = () => {
   const [filter, setFilter] = useState<Filter>();
   const [productList, setProductList] = useState<Product[]>([]);
-  const [productsLength, setProductsLength] = useState<number>();
+  const [productsLength, setProductsLength] = useState<number>(0);
 
   useEffect(() => {
     fetchProducts(filter).then((response) => {
@@ -28,7 +28,7 @@ const App = () => {
     <Container>
       <FilterBar filter={filter} setFilter={setFilter} />
       <ProductList productList={productList} />
-      <PageNavigator productsLength={productsLength ? productsLength : 0} />
+      <PageNavigator productsLength={productsLength} />
     </Container>
   );
 };
