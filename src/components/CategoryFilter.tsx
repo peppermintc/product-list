@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { axiosFetchCategories } from "../api";
+import { fetchCategories } from "../api";
 import { Category, CategoryTreeNode, Filter } from "../interfaces";
 import { makeCategoryTree } from "../utils/makeCategoryTree";
 
@@ -43,7 +43,7 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
 
   useEffect(() => {
     if (categories.length === 0)
-      axiosFetchCategories().then((response) => setCategories(response));
+      fetchCategories().then((response) => setCategories(response));
   }, [categories]);
 
   useEffect(() => {

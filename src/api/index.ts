@@ -20,7 +20,7 @@ const axiosGet = (path: string, params?: {}) => {
   }
 };
 
-export const axiosFetchProducts = (filter: Filter | undefined) => {
+export const fetchProducts = (filter: Filter | undefined) => {
   return axiosGet("products", {
     params: filter && {
       brand: filter.brand && filter.brand.name,
@@ -32,6 +32,6 @@ export const axiosFetchProducts = (filter: Filter | undefined) => {
     },
   });
 };
-export const axiosFetchBrands = () => axiosGet("brands");
-export const axiosFetchColors = () => axiosGet("colors");
-export const axiosFetchCategories = () => axiosGet("categories");
+export const fetchBrands = () => axiosGet("brands");
+export const fetchColors = () => axiosGet("colors");
+export const fetchCategories = () => axiosGet("categories");

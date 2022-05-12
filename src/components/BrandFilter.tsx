@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MouseEvent, useEffect, useState } from "react";
-import { axiosFetchBrands } from "../api";
+import { fetchBrands } from "../api";
 import { Brand, Filter } from "../interfaces";
 import ArrowDownIcon from "../img/arrowDown.png";
 
@@ -65,7 +65,7 @@ const BrandFilter = ({ filter, setFilter }: BrandFilterProps) => {
 
   useEffect(() => {
     if (brands.length === 0)
-      axiosFetchBrands().then((response) => setBrands(response));
+      fetchBrands().then((response) => setBrands(response));
   }, [brands]);
 
   const onSelectedClick = () => {

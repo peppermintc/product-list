@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import { axiosFetchColors } from "../api";
+import { fetchColors } from "../api";
 import { Color, Filter } from "../interfaces";
 import ArrowDownIcon from "../img/arrowDown.png";
 
@@ -65,7 +65,7 @@ const ColorFilter = ({ filter, setFilter }: ColorFilterProps) => {
 
   useEffect(() => {
     if (colors.length === 0)
-      axiosFetchColors().then((response) => setColors(response));
+      fetchColors().then((response) => setColors(response));
   }, [colors]);
 
   const onSelectedClick = () => {

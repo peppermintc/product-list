@@ -1,6 +1,6 @@
 import { Filter, Product } from "./interfaces";
 import { useEffect, useState } from "react";
-import { axiosFetchProducts } from "./api";
+import { fetchProducts } from "./api";
 import styled from "styled-components";
 import FilterBar from "./components/FilterBar";
 import ProductList from "./components/ProductList";
@@ -21,7 +21,7 @@ const App = () => {
   }>();
 
   useEffect(() => {
-    axiosFetchProducts(filter).then((response) => {
+    fetchProducts(filter).then((response) => {
       setProductList(response.products);
       setProductsResponse(response);
     });
