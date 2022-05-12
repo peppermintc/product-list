@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { fetchCategories } from "../api";
 import { Category, CategoryTreeNode, Filter } from "../interfaces";
-import { makeCategoryTree } from "../utils/makeCategoryTree";
+import { newCategoryTreeMaker, TreeNode } from "../utils/makeCategoryTree";
 
 interface CategoryFilterProps {
   filter: Filter | undefined;
@@ -36,9 +36,15 @@ const Child = styled.div<{ isSelected: boolean }>`
   font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
 `;
 
+const CategoryItem = styled.div<{ isSelected: boolean; depth: number }>`
+  cursor: pointer;
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
+  margin-left: ${({ depth }) => `${depth * 10}px`};
+`;
+
 const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [categoryTree, setCategoryTree] = useState<CategoryTreeNode[]>();
+  const [categoryTree, setCategoryTree] = useState<TreeNode[]>([]);
   const [openedCategoryList, setOpenedCategoryList] = useState<boolean[]>([]);
 
   useEffect(() => {
@@ -47,7 +53,8 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
   }, [categories]);
 
   useEffect(() => {
-    const newCategoryTree = makeCategoryTree(categories);
+    const newCategoryTree = newCategoryTreeMaker(categories);
+    console.log(newCategoryTree);
     setCategoryTree(newCategoryTree);
   }, [categories]);
 
@@ -88,6 +95,42 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
     });
   };
 
+  const renderCategoryTree = (categoryTree: TreeNode[]) => {
+    const addChildren = (children: number[], depth: number) => {
+      return children.map((childId) => {
+        const childNode = categoryTree.find(
+          (node) => node.current.id === childId
+        );
+
+        return (
+          <CategoryItem
+            key={childNode?.current.id}
+            isSelected={childNode?.current.id === currentCategoryId}
+            onClick={() => {}}
+            depth={depth}
+          >
+            <span>{childNode?.current.name}</span>
+            {childNode?.children !== undefined &&
+              addChildren(childNode.children, depth + 1)}
+          </CategoryItem>
+        );
+      });
+    };
+
+    return categoryTree.map((node: TreeNode) => (
+      <CategoryItem
+        key={node.current.id}
+        isSelected={node.current.id === currentCategoryId}
+        onClick={() => {}}
+        depth={0}
+      >
+        <span>{node.current.name}</span>
+
+        {addChildren(node.children, 1)}
+      </CategoryItem>
+    ));
+  };
+
   const currentCategoryId = filter?.categoryId;
 
   return (
@@ -97,27 +140,7 @@ const CategoryFilter = ({ filter, setFilter }: CategoryFilterProps) => {
         <All isSelected={currentCategoryId === undefined} onClick={onAllClick}>
           All
         </All>
-        {categoryTree?.map((node: CategoryTreeNode) => (
-          <div key={node.parent.id}>
-            <Parent
-              isSelected={node.parent.id === currentCategoryId}
-              onClick={() => onParentCategoryClick(node.parent)}
-            >
-              {node.parent.name}
-            </Parent>
-            <Children isOpen={openedCategoryList[node.parent.id - 1]}>
-              {node.children?.map((child) => (
-                <Child
-                  key={child.id}
-                  isSelected={child.id === currentCategoryId}
-                  onClick={() => onChildCategoryClick(child)}
-                >
-                  {child.name}
-                </Child>
-              ))}
-            </Children>
-          </div>
-        ))}
+        {renderCategoryTree(categoryTree)}
       </div>
     </Container>
   );

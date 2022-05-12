@@ -6,7 +6,7 @@ import { Category, CategoryTreeNode } from "../interfaces";
 export interface TreeNode {
   parent: Category | null;
   current: Category;
-  children: Category[] | Category;
+  children: number[];
 }
 
 export const newCategoryTreeMaker = (categories: Category[]) => {
@@ -14,8 +14,14 @@ export const newCategoryTreeMaker = (categories: Category[]) => {
 
   categories.forEach((category: Category) => {
     const parent = categories.find((c) => c.id === category.parent_id) || null;
-    const children = categories.filter((c) => c.parent_id === category.id);
-    tree.push({ parent: parent, current: category, children: children });
+    const newChildren = () => {
+      const childrenCategories = categories.filter(
+        (c) => c.parent_id === category.id
+      );
+      const childrenIds = childrenCategories.map((c) => c.id);
+      return childrenIds;
+    };
+    tree.push({ parent: parent, current: category, children: newChildren() });
   });
 
   return tree;
